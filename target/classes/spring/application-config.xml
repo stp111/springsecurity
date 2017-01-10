@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- base-package here: -->
+	 <context:component-scan base-package="com.dcloud.*"/>
+
+	<!-- 数据库连接配置 -->
+	<beans:import resource="application-datasource.xml" />
+
+	<beans:bean id="userDao" class="com.dcloud.dao.UserDAO">
+		<property name="dataSource" ref="dataSource"></property>
+	</beans:bean>
+
+	<beans:bean id="userDBService" class="com.dcloud.service.UserDBService">
+		<property name="userDao" ref="userDao"></property>
+	</beans:bean>
+
+	<beans:bean id = "messageBoardService" class="com.dcloud.service.MessageBoardServiceImp">
+	</beans:bean>
+	
+	<beans:bean id = "cutomUserDetailService" class="com.dcloud.service.CustomUserDetailService">
+		<!-- <property name="userDao" ref="userDao"></property> -->
+	</beans:bean>
+</beans>
